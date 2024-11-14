@@ -19,9 +19,9 @@ export const StateContextProvider = ({ children }) => {
     // but for now this is a mini weather app so why the fuck not
     //const apiKey = import.meta.env.VITE_X_RAPID_API_KEY;  // this one gets the env var value but for some reason its not working
     //const apiKey = process.env.VITE_X_RAPID_API_KEY;  // process is undefined
-
+// const apiKey = process.env.VITE_X_RAPID_API_KEY || import.meta.env.VITE_X_RAPID_API_KEY ;
   
-    const apiKey = process.env.VITE_X_RAPID_API_KEY || import.meta.env.VITE_X_RAPID_API_KEY ;
+    const apiKey = "12f48501d5msh3fec3e1ca3e49e5p15cf7cjsn8e6a481e855f" ;
     const options = {
       method: 'GET',
       url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',
