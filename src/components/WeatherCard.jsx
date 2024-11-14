@@ -28,9 +28,10 @@ const WeatherCard = ({
   const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
 
   // Calculate temperature based on the selected unit
-  const displayTemp = temperature !== null && temperature !== undefined 
-    ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}` 
-    : 'N/A';
+  const displayTemp = (temperature !== null && temperature !== undefined && !isNaN(temperature))
+  ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
+  : 'N/A';
+
 
   // Calculate heat index based on the selected unit
   const displayHeatIndex = heatIndex !== null && heatIndex !== undefined
