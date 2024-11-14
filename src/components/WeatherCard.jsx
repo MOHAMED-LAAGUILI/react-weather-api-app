@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"; // Import PropTypes
 
 import sun from "../assets/svgs/day.svg";
 import fog from "../assets/svgs/cloudy-night-3.svg";
 import cloud from "../assets/svgs/weather.svg";
-import wind from "../assets/svgs/weather_sagittarius.svg";
+import wind from "../assets/svgs/weather_sagittarius.svg"; // Assuming this is for partially cloudy or wind conditions
+
 import rain from "../assets/svgs/rainy-7.svg";
 import snow from "../assets/svgs/snowy-6.svg";
 import storm from "../assets/svgs/thunder.svg";
-import weather from "../assets/svgs/weather.svg";
+import weather from "../assets/svgs/weather.svg"; // Default icon
 
 const WeatherCard = ({
   temperature,
@@ -18,21 +19,17 @@ const WeatherCard = ({
   heatIndex,
   conditions,
 }) => {
-  const [icon, setIcon] = useState(weather);
-  const [isCelsius, setIsCelsius] = useState(true);
+  const [icon, setIcon] = useState(weather); // Default to weather icon
+  const [isCelsius, setIsCelsius] = useState(false); // State to track Celsius or Fahrenheit
 
-  // Function to convert Fahrenheit to Celsius
-  const convertToCelsius = (temp) => ((temp + 32) * 5) / 9;
-
-  // Toggle temperature unit
-  const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
-
-  // Calculate temperature based on the selected unit
-  const displayTemp = (temperature !== null && temperature !== undefined && !isNaN(temperature))
-    ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 - 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
-    : 'N/A';
+  // Convert temperature from Fahrenheit to Celsius
+  const convertToCelsius = (tempInFahrenheit) => ((tempInFahrenheit - 32) * 5) / 9;
+  const currentTemperature = isCelsius
+    ? convertToCelsius(temperature).toFixed(1)
+    : temperature;
 
   useEffect(() => {
+    // Set image based on weather conditions using includes for partial matches
     if (conditions.toLowerCase().includes("fog")) {
       setIcon(fog);
     } else if (conditions.toLowerCase().includes("cloudy")) {
@@ -46,9 +43,9 @@ const WeatherCard = ({
     } else if (conditions.toLowerCase().includes("storm")) {
       setIcon(storm);
     } else if (conditions.toLowerCase().includes("wind")) {
-      setIcon(wind);
+      setIcon(wind); // For partially cloudy or wind conditions
     } else {
-      setIcon(weather);
+      setIcon(weather); // Default to the general weather icon
     }
   }, [conditions]);
 
@@ -57,29 +54,25 @@ const WeatherCard = ({
       <img src={icon} alt="Weather icon" className="w-20 h-20 object-contain mb-4" />
       <h2 className="text-2xl font-semibold mb-2">{place}</h2>
       <p className="text-lg font-light mb-1">Conditions: {conditions}</p>
-      <p className="text-4xl font-bold mb-2">
-        {displayTemp}
-      </p>
-      <button
-        onClick={toggleTemperatureUnit}
-        className="mt-2 text-sm text-blue-500 underline"
-      >
-        🥲 bug daba nselho hhh
-        Switch to °{isCelsius ? "F" : "C"}
-      </button>
+      <p className="text-4xl font-bold mb-2">{currentTemperature}°{isCelsius ? "C" : "F"}</p>
       <div className="flex justify-between w-full mt-4 text-sm font-light">
         <div>Wind: {windSpeed} km/h</div>
         <div>Humidity: {humidity}%</div>
       </div>
-      <p className="text-sm mt-2">
-        Heat Index: {(heatIndex !== null && heatIndex !== undefined && !isNaN(heatIndex)) 
-          ? `${isCelsius ? heatIndex.toFixed(1) : (heatIndex * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}` 
-          : 'N/A'}
-      </p>
+      <p className="text-sm mt-2">Heat Index: {heatIndex || "N/A"}°{isCelsius ? "C" : "F"}</p>
+      
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsCelsius(!isCelsius)}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+      >
+        Switch to {isCelsius ? "°F" : "°C"}
+      </button>
     </div>
   );
 };
 
+// Define PropTypes for the component
 WeatherCard.propTypes = {
   temperature: PropTypes.number.isRequired,
   windSpeed: PropTypes.number.isRequired,
