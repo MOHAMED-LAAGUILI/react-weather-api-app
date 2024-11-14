@@ -22,7 +22,7 @@ const WeatherCard = ({
   const [isCelsius, setIsCelsius] = useState(true);
 
   // Function to convert Fahrenheit to Celsius
-  const convertToCelsius = (temp) => ((temp - 32) * 5) / 9;
+  const convertToCelsius = (temp) => ((temp + 32) * 5) / 9;
 
   // Toggle temperature unit
   const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
