@@ -18,10 +18,10 @@ export const StateContextProvider = ({ children }) => {
     // lol  i had this huge problem cannot import api key from env i tried many solutions so i decided to past it here i know its not safe 
     // but for now this is a mini weather app so why the fuck not
     //const apiKey = import.meta.env.VITE_X_RAPID_API_KEY;  // this one gets the env var value but for some reason its not working
-    //const apiKey = process.VITE_X_RAPID_API_KEY;  // process is undefined
+    //const apiKey = process.env.VITE_X_RAPID_API_KEY;  // process is undefined
 
   
-    const apiKey ="12f48501d5msh3fec3e1ca3e49e5p15cf7cjsn8e6a481e855f";
+    const apiKey =process.env.VITE_X_RAPID_API_KEY;;
     const options = {
       method: 'GET',
       url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',
