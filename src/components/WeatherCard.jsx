@@ -29,13 +29,7 @@ const WeatherCard = ({
 
   // Calculate temperature based on the selected unit
   const displayTemp = (temperature !== null && temperature !== undefined && !isNaN(temperature))
-  ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
-  : 'N/A';
-
-
-  // Calculate heat index based on the selected unit
-  const displayHeatIndex = heatIndex !== null && heatIndex !== undefined
-    ? `${isCelsius ? heatIndex.toFixed(1) : (heatIndex * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
+    ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
     : 'N/A';
 
   useEffect(() => {
@@ -77,7 +71,9 @@ const WeatherCard = ({
         <div>Humidity: {humidity}%</div>
       </div>
       <p className="text-sm mt-2">
-        Heat Index: {displayHeatIndex}
+        Heat Index: {(heatIndex !== null && heatIndex !== undefined && !isNaN(heatIndex)) 
+          ? `${isCelsius ? heatIndex.toFixed(1) : (heatIndex * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}` 
+          : 'N/A'}
       </p>
     </div>
   );
