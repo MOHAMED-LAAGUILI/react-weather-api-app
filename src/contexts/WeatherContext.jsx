@@ -21,7 +21,7 @@ export const StateContextProvider = ({ children }) => {
     //const apiKey = process.VITE_X_RAPID_API_KEY;  // process is undefined
 
   
-    const apiKey = import.meta.env.VITE_X_RAPID_API_KEY;
+    const apiKey =  process.env.VITE_X_RAPID_API_KEY;
     const options = {
       method: 'GET',
       url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',
