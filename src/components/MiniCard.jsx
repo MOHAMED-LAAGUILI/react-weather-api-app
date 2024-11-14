@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import sun from "../assets/svgs/day.svg";
 import fog from "../assets/svgs/cloudy-night-3.svg";
@@ -12,10 +12,21 @@ import { useStateContext } from "../contexts/WeatherContext";
 
 const MiniCard = ({ day, iconString, temp }) => {
   const displayDay = day || 'N/A';
-  const displayTemp = temp !== null && temp !== undefined ? `${temp}°C` : 'N/A';
   const { weather } = useStateContext();
 
   const [icon, setIcon] = useState(weatherico);
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  // Function to convert Fahrenheit to Celsius
+  const convertToCelsius = (temp) => ((temp - 32) * 5) / 9;
+  
+  // Toggle between Celsius and Fahrenheit
+  const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
+
+  // Display temperature based on unit
+  const displayTemp = temp !== null && temp !== undefined 
+    ? `${isCelsius ? convertToCelsius(temp).toFixed(1) : temp}°${isCelsius ? "C" : "F"}` 
+    : 'N/A';
 
   useEffect(() => {
     if (iconString) {
@@ -55,7 +66,15 @@ const MiniCard = ({ day, iconString, temp }) => {
             aria-hidden="true"
           />
         </div>
-        <p className="text-3xl font-bold mb-1" aria-label={`Temperature: ${displayTemp}`}>{displayTemp}</p>
+        <p className="text-3xl font-bold mb-1" aria-label={`Temperature: ${displayTemp}`}>
+          {displayTemp}
+        </p>
+        <button
+          onClick={toggleTemperatureUnit}
+          className="mt-2 text-sm text-blue-300 underline"
+        >
+          Switch to °{isCelsius ? "F" : "C"}
+        </button>
         <p className="text-sm opacity-75 text-center">{iconString || 'Unknown conditions'}</p>
       </div>
     </div>
