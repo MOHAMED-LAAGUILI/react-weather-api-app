@@ -27,12 +27,9 @@ const WeatherCard = ({
   const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
 
   // Calculate temperature based on the selected unit
-  const displayTemperature = isCelsius
-    ? convertToCelsius(temperature).toFixed(1)
-    : temperature.toFixed(1);
-  const displayHeatIndex = heatIndex
-    ? (isCelsius ? convertToCelsius(heatIndex).toFixed(1) : heatIndex.toFixed(1))
-    : "N/A";
+  const displayTemp = temp !== null && temp !== undefined 
+  ? `${isCelsius ? convertToCelsius(temp).toFixed(1) : temp}°${isCelsius ? "C" : "F"}` 
+  : 'N/A';
 
   useEffect(() => {
     if (conditions.toLowerCase().includes("fog")) {
