@@ -64,6 +64,7 @@ const WeatherCard = ({
         onClick={toggleTemperatureUnit}
         className="mt-2 text-sm text-blue-500 underline"
       >
+        🥲 bug daba nselho hhh
         Switch to °{isCelsius ? "F" : "C"}
       </button>
       <div className="flex justify-between w-full mt-4 text-sm font-light">
