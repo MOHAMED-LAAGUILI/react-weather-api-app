@@ -23,13 +23,19 @@ const WeatherCard = ({
 
   // Function to convert Fahrenheit to Celsius
   const convertToCelsius = (temp) => ((temp - 32) * 5) / 9;
+
   // Toggle temperature unit
   const toggleTemperatureUnit = () => setIsCelsius(!isCelsius);
 
   // Calculate temperature based on the selected unit
-  const displayTemp = temp !== null && temp !== undefined 
-  ? `${isCelsius ? convertToCelsius(temp).toFixed(1) : temp}°${isCelsius ? "C" : "F"}` 
-  : 'N/A';
+  const displayTemp = temperature !== null && temperature !== undefined 
+    ? `${isCelsius ? temperature.toFixed(1) : (temperature * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}` 
+    : 'N/A';
+
+  // Calculate heat index based on the selected unit
+  const displayHeatIndex = heatIndex !== null && heatIndex !== undefined
+    ? `${isCelsius ? heatIndex.toFixed(1) : (heatIndex * 9/5 + 32).toFixed(1)}°${isCelsius ? "C" : "F"}`
+    : 'N/A';
 
   useEffect(() => {
     if (conditions.toLowerCase().includes("fog")) {
@@ -57,7 +63,7 @@ const WeatherCard = ({
       <h2 className="text-2xl font-semibold mb-2">{place}</h2>
       <p className="text-lg font-light mb-1">Conditions: {conditions}</p>
       <p className="text-4xl font-bold mb-2">
-        {displayTemperature}°{isCelsius ? "C" : "F"}
+        {displayTemp}
       </p>
       <button
         onClick={toggleTemperatureUnit}
@@ -70,7 +76,7 @@ const WeatherCard = ({
         <div>Humidity: {humidity}%</div>
       </div>
       <p className="text-sm mt-2">
-        Heat Index: {displayHeatIndex}°{isCelsius ? "C" : "F"}
+        Heat Index: {displayHeatIndex}
       </p>
     </div>
   );
